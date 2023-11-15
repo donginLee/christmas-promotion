@@ -1,5 +1,5 @@
 import Order from '../src/Order.js';
-import Menu from '../src/Menu.js'
+import Menu from '../src/Menu.js';
 
 describe('Order 클래스 테스트', () => {
   test('올바르게 주문한 경우', async () => {
