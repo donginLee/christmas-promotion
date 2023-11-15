@@ -32,5 +32,19 @@ describe('Bill 클래스 테스트', () => {
     expect(bill.willProvideGift).toEqual(true);
     expect(bill.finalPaymentAmount).toEqual(135754);
   });
+  test('올바르게 주문한 경우 - 만 원 이하로 주문한 경우', () => {
+    const dateInput = '3';
+    const orderInput = '양송이수프-1,제로콜라-1'
+    const date = new Date(dateInput);
+  
+    const bill = new Bill(date.date, Menu, orderInput);
+
+    expect(bill.totalOrderAmountBeforeDiscount).toBe(9000);
+    expect(bill.totalBenefit).toEqual(0);
+    expect(bill.totalDiscount).toEqual(0);
+    expect(bill.decemberPromotionBadge).toEqual('없음');
+    expect(bill.willProvideGift).toEqual(false);
+    expect(bill.finalPaymentAmount).toEqual(9000);
+  });
 });
 
