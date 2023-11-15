@@ -1,4 +1,6 @@
 const formatCurrency = function formatCurrencyToWon(number) {
-  return number.toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' });
+  if(typeof number !== 'number') throw new Error('[ERROR] 잘못된 형태의 숫자입니다. 관리자에게 문의해 주세요.');
+  const numberCurrency = number.toLocaleString();
+  return `${numberCurrency}원`;
 }
-return formatCurrency;
+export default formatCurrency;

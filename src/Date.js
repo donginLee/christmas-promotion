@@ -2,7 +2,7 @@ class Date {
   date;
   constructor(dateInput) {
     this.#validate(dateInput);
-    this.date = dateInput;
+    this.date = parseInt(dateInput);
   }
   #isPositiveNumber(dateInput) {
     if(!dateInput) return false;
@@ -12,9 +12,10 @@ class Date {
     return true;
   }
   #validate(dateInput) {
-    if(!this.#isPositiveNumber(dateInput)) {throw new Error('[ERROR] 유효한 날짜가 아닙니다.');}
+    if(typeof dateInput !== 'string') throw new Error('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
+    if(!this.#isPositiveNumber(dateInput)) throw new Error('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
     const dateNumber = parseInt(dateInput);
-    if(dateNumber < 1 || dateNumber > 31) {throw new Error('[ERROR] 유효한 날짜가 아닙니다.');}
+    if(dateNumber < 1 || dateNumber > 31) throw new Error('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
   };
 }
 export default Date;
