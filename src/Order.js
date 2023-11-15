@@ -1,6 +1,7 @@
 class Order {
   ORDER={};
   MENU;
+  CATEGORY=[];
   constructor(menu,orderInput) {
     
     this.#validate(menu,orderInput);
@@ -11,7 +12,7 @@ class Order {
     this.#orderInputValidate(orderInput);
   }
   #menuValidate(menu) {
-    if(!menu) throw new Error('[ERROR] 유효하지 않은 메뉴입니다. 관리자에게 문의하세요. 0');
+    if(!menu) throw new Error('[ERROR] 유효하지 않은 메뉴입니다. 관리자에게 문의하세요.');
     return menu;
   }
   #orderInputValidate(orderInput) {
@@ -19,25 +20,26 @@ class Order {
     return order;
   }
   #eachValidate(menu,count) {
-    if(!this.#isNumber(count)) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요. 0');
+    if(!this.#isNumber(count)) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     const countInNumber = parseInt(count);
-    if(countInNumber < 0 || countInNumber > 20)throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요.1');
-    if(!((this.MENU)[menu])) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요.2');
+    if(countInNumber <= 0 || countInNumber > 20)throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+    if(!((this.MENU)[menu])) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+    this.CATEGORY.push(this.MENU[menu]['종류']);
     return;
   }
   #totalValidate(itemCounts){
-    if(itemCounts.length > 20) throw new Error('[ERROR] 주문은 최대 20개까지 가능합니다. 다시 입력해 주세요.3')
     let totalOrderCount = 0;
     itemCounts.forEach(itemCount => {
       const itemAndCount = itemCount.split('-');
-      if(itemAndCount.length != 2) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.4');
+      if(itemAndCount.length != 2) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
       const [menu, count] = itemAndCount;
       this.#eachValidate(menu,count);
-      if((this.ORDER)[menu]) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.5');
+      if((this.ORDER)[menu]) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
       const countInNumber = parseInt(count);
       (this.ORDER)[menu] =countInNumber;
       totalOrderCount += countInNumber;
-      if(totalOrderCount > 20) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.6');
+      if(totalOrderCount > 20) throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+      if(this.CATEGORY.length === 1 && this.CATEGORY[0] === '음료') throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     });
   }
   #isNumber(str){
