@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import wrapTitle from "./wrapTitle.js";
+import wrapTitle from "./WrapTitle.js";
 import formatCurrency from './FormatCurrency.js';
 const OutputView = {
   showIntroduction() {
