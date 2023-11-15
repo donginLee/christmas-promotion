@@ -36,7 +36,7 @@ const OutputView = {
     Console.print(`\n${wrapTitle(title)}`);
     if(totalDiscount === 0) {Console.print('없음\n');return;}
     Object.keys(discountHistory).forEach( title => {
-      Console.print(`${title}: -${formatCurrency(discountHistory[title])}`);
+      if(discountHistory[title] !== 0) Console.print(`${title}: -${formatCurrency(discountHistory[title])}`);
     });
   },
   showTotalDiscount(title,totalDiscount) {
